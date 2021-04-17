@@ -1,13 +1,33 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "TileMap.cpp"
 
 sf::Text howToSetText(std::string);
 
 int main() {
     // TODO: Set width and height modifications
-    sf::RenderWindow window(sf::VideoMode(800, 600), "");
+    sf::RenderWindow window(sf::VideoMode(512, 256), "");
     // Framerate limitor?
     // window.setFramerateLimit(60);
+
+    int level[] =
+            {
+                    15, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                    23, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0,
+                    31, 1, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
+                    0, 1, 0, 0, 2, 0, 3, 3, 3, 0, 1, 1, 1, 0, 0, 0,
+                    0, 1, 1, 0, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2, 0, 0,
+                    0, 0, 1, 0, 3, 0, 2, 2, 0, 0, 1, 1, 1, 1, 2, 0,
+                    2, 0, 1, 0, 3, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1,
+                    0, 0, 1, 0, 3, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1,
+            };
+
+    TileMap map;
+    if(!map.load("../Assets/TempTilesets/Revolution/revolution_tiles.png", sf::Vector2u(8, 8), level, 16, 8))
+        return -1;
+
+
+
 
 
     while(window.isOpen()) {
@@ -24,7 +44,7 @@ int main() {
         // Clear window each frame to draw new stuff
         window.clear();
         // The content in order of layer
-
+        window.draw(map);
         // End the current frame and display its contents on screen
         window.display();
     }
